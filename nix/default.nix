@@ -5,7 +5,8 @@ let
     (import sources."gitignore.nix" { inherit (pkgs) lib; }).gitignoreSource;
   pre-commit-hooks = import sources."pre-commit-hooks.nix";
   src = gitignoreSource ./..;
-in {
+in
+{
   inherit pkgs src;
 
   # Used by shell.nix

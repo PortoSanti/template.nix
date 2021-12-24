@@ -5,8 +5,9 @@ let
   gitignoreSource =
     (import sources."gitignore.nix" { inherit (pkgs) lib; }).gitignoreSource;
   pre-commit-hooks = import sources."pre-commit-hooks.nix";
-  src = gitignoreSource ./..;
-in {
+  src = gitignoreSource ./.;
+in
+{
   inherit pkgs src;
 
   pre-commit-check = pre-commit-hooks.run {
