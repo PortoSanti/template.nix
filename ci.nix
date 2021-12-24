@@ -1,4 +1,5 @@
-{ sources ? import ./sources.nix }:
+{ sources ? import ./nix/sources.nix }:
+
 let
   pkgs = import sources.nixpkgs { };
   gitignoreSource =
@@ -8,12 +9,6 @@ let
 in {
   inherit pkgs src;
 
-  # Used by shell.nix
-  devTools = {
-    inherit (pkgs) niv;
-    inherit (pre-commit-hooks) pre-commit;
-  };
-
   pre-commit-check = pre-commit-hooks.run {
     inherit src;
     hooks = {
@@ -21,7 +16,6 @@ in {
       nixpkgs-fmt.enable = true;
       nix-linter.enable = true;
     };
-    # generated files
     excludes = [ "^nix/sources.nix$" ];
   };
 }
